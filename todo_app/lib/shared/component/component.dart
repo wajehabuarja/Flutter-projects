@@ -47,6 +47,7 @@ Widget defaultTextForm({
   VoidCallback? suffixPressed,
 }) =>
     TextFormField(
+      // readOnly: true,
       enabled: isClickable,
       validator: validate,
       controller: controller,
