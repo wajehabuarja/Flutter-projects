@@ -4,6 +4,7 @@ class NewsInitialState extends NewsStates {}
 
 class NewsBottomNavState extends NewsStates {}
 
+//
 class NewGetBusniessLoadingState extends NewsStates {}
 
 class NewGetBusniessSuccessState extends NewsStates {}
@@ -13,3 +14,22 @@ class NewGetBusniessErrorState extends NewsStates {
   NewGetBusniessErrorState(this.error);
 }
 
+//
+class NewGetSportsLoadingState extends NewsStates {}
+
+class NewGetSportsSuccessState extends NewsStates {}
+
+class NewGetSportsErrorState extends NewsStates {
+  final String error;
+  NewGetSportsErrorState(this.error);
+}
+
+//
+class NewGetScienceLoadingState extends NewsStates {}
+
+class NewGetScienceSuccessState extends NewsStates {}
+
+class NewGetScienceErrorState extends NewsStates {
+  final String error;
+  NewGetScienceErrorState(this.error);
+}
