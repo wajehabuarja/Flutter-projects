@@ -7,6 +7,7 @@ import 'package:news_app/layout/news_layout.dart';
 import 'package:news_app/shared/appcubit/appcubit.dart';
 import 'package:news_app/shared/appcubit/appstates.dart';
 import 'package:news_app/shared/bloc_observer%20.dart';
+import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
@@ -29,84 +30,90 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (BuildContext context) => AppCubit()..changeAppMode(fromShared: isDark),
-        child: BlocConsumer<AppCubit, AppStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return MaterialApp(
-              //Light mode
-              theme: ThemeData(
-                brightness: Brightness.light,
-                primarySwatch: Colors.red,
-                scaffoldBackgroundColor: Colors.white,
-                appBarTheme: const AppBarTheme(
-                  titleSpacing: 20,
-                  iconTheme: IconThemeData(
-                    color: Colors.black,
-                  ),
-                  titleTextStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: Colors.white,
-                      statusBarIconBrightness: Brightness.dark),
-                  backgroundColor: Colors.white,
-                  elevation: 0,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NewsCubit()..getBusiness()),
+        BlocProvider(
+          create: (BuildContext context) =>
+              AppCubit()..changeAppMode(fromShared: isDark),
+        ),
+      ],
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+            //Light mode
+            theme: ThemeData(
+              brightness: Brightness.light,
+              primarySwatch: Colors.red,
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme: const AppBarTheme(
+                titleSpacing: 20,
+                iconTheme: IconThemeData(
+                  color: Colors.black,
                 ),
-                bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.redAccent,
-                  unselectedItemColor: Colors.grey,
-                  elevation: 20,
-                  backgroundColor: Colors.white,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
+                systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark),
+                backgroundColor: Colors.white,
+                elevation: 0,
               ),
-              //Dark mode
-              darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                primarySwatch: Colors.red,
-                scaffoldBackgroundColor: HexColor('333739'),
-                appBarTheme: AppBarTheme(
-                  titleSpacing: 20,
-                  iconTheme: const IconThemeData(
-                    color: Colors.white,
-                  ),
-                  titleTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: HexColor('333739'),
-                      statusBarIconBrightness: Brightness.light),
-                  backgroundColor: HexColor('333739'),
-                  elevation: 0,
-                ),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.redAccent,
-                  unselectedItemColor: Colors.grey,
-                  elevation: 20,
-                  backgroundColor: HexColor('333739'),
-                ),
-                // textTheme:  TextTheme(
-                //   bodyText1: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.w500,
-                //     // color: Colors.white,
-                //   ),
-                // ),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.redAccent,
+                unselectedItemColor: Colors.grey,
+                elevation: 20,
+                backgroundColor: Colors.white,
               ),
-              themeMode: AppCubit.get(context).isDark
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              home: NewsLayout(),
-              debugShowCheckedModeBanner: false,
-            );
-          },
-        ));
+            ),
+            //Dark mode
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primarySwatch: Colors.red,
+              scaffoldBackgroundColor: HexColor('333739'),
+              appBarTheme: AppBarTheme(
+                titleSpacing: 20,
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
+                titleTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarColor: HexColor('333739'),
+                    statusBarIconBrightness: Brightness.light),
+                backgroundColor: HexColor('333739'),
+                elevation: 0,
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.redAccent,
+                unselectedItemColor: Colors.grey,
+                elevation: 20,
+                backgroundColor: HexColor('333739'),
+              ),
+              // textTheme:  TextTheme(
+              //   bodyText1: TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.w500,
+              //     // color: Colors.white,
+              //   ),
+              // ),
+            ),
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: NewsLayout(),
+            debugShowCheckedModeBanner: false,
+          );
+        },
+      ),
+    );
   }
 }

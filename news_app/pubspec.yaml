@@ -42,6 +42,7 @@ dependencies:
   dio: ^4.0.6
   hexcolor: ^3.0.1
   shared_preferences: ^2.0.17
+  webview_flutter: ^4.0.2
 
 dev_dependencies:
   flutter_test:

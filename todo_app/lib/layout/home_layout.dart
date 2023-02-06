@@ -81,6 +81,7 @@ class HomeLayout extends StatelessWidget {
                                   height: 15,
                                 ),
                                 defaultTextForm(
+                                  readOnly: true,
                                   controller: timeController,
                                   type: TextInputType.datetime,
                                   label: 'Task time',
@@ -105,6 +106,7 @@ class HomeLayout extends StatelessWidget {
                                   height: 15,
                                 ),
                                 defaultTextForm(
+                                  readOnly: true,
                                   controller: dateController,
                                   type: TextInputType.datetime,
                                   label: 'Task Date',

@@ -33,6 +33,7 @@ Widget defaultButton({
 
 //text form
 Widget defaultTextForm({
+  bool readOnly = false,
   bool isClickable = true,
   required TextEditingController controller,
   required TextInputType type,
@@ -47,7 +48,7 @@ Widget defaultTextForm({
   VoidCallback? suffixPressed,
 }) =>
     TextFormField(
-      // readOnly: true,
+      readOnly: readOnly,
       enabled: isClickable,
       validator: validate,
       controller: controller,
@@ -68,6 +69,42 @@ Widget defaultTextForm({
 
 //
 Widget buildTaskItem(Map model, context) => Dismissible(
+      background: Container(
+        color: Colors.red,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text('Delete',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 44,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+          ],
+        ),
+      ),
+      secondaryBackground: Container(
+        color: Colors.red,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text('Delete',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 44,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+          ],
+        ),
+      ),
       key: Key(model['id'].toString()),
       onDismissed: (direction) {
         AppCubit.get(context).deleteData(
