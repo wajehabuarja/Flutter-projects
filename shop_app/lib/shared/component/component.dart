@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 
 //Navigator To
@@ -97,5 +98,46 @@ Widget defaultTextButton({
         style: const TextStyle(
           color: Colors.grey,
         ),
+      ),
+    );
+
+//Toast
+void showToast({required String text, required TostStates state}) =>
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: chooseToastColor(state),
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+//enum
+enum TostStates { SUCCESS, ERROR, WARNING }
+
+//Color Toast method
+Color chooseToastColor(TostStates state) {
+  Color color;
+  switch (state) {
+    case TostStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case TostStates.ERROR:
+      color = Colors.red;
+      break;
+    case TostStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}
+
+//Line
+Widget myDivider() => Padding(
+      padding: const EdgeInsetsDirectional.only(start: 20),
+      child: Container(
+        width: double.infinity,
+        height: 1,
+        color: Colors.grey[300],
       ),
     );

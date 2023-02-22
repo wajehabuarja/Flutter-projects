@@ -44,6 +44,10 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   ionicons: ^0.2.2
   conditional_builder_null_safety: ^0.0.6
+  fluttertoast: ^8.1.4
+  shared_preferences: ^2.0.17
+  carousel_slider: ^4.2.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

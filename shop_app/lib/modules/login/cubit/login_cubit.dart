@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/models/login_model.dart';
 import 'package:shop_app/modules/login/cubit/login_states.dart';
 import 'package:shop_app/shared/network/end_points.dart';
@@ -33,18 +34,19 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
         print(loginModel.status);
         print(loginModel.message);
         print(loginModel.data!.token);
+        
 
         emit(ShopLoginSuccessStates(loginModel));
       },
     ).catchError(
       (error) {
         print(error);
-        emit(ShopLoginErrorStates(error.toString()));
+        emit(ShopLoginErrorStates(error.toString(),loginModel));
       },
     );
   }
 
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffix = Icons.visibility_off_outlined;
   bool isPassSec = true;
 
   void changePasswordVisibility() {

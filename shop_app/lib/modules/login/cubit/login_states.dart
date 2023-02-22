@@ -14,8 +14,11 @@ final ShopLoginModel loginModel;
 
 class ShopLoginErrorStates extends ShopLoginStates {
   final String error;
+  final ShopLoginModel loginModel;
 
-  ShopLoginErrorStates(this.error);
+  ShopLoginErrorStates(this.error, this.loginModel);
+
+  
 }
 
 class ShopLoginChangePasswordVisibilityState extends ShopLoginStates {}

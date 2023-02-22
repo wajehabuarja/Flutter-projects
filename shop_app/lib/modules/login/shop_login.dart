@@ -1,17 +1,18 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:shop_app/layout/home_layout.dart';
 import 'package:shop_app/modules/login/cubit/login_cubit.dart';
 import 'package:shop_app/modules/login/cubit/login_states.dart';
-import 'package:shop_app/modules/shop_register.dart';
+import 'package:shop_app/modules/register/shop_register.dart';
 import 'package:shop_app/shared/component/component.dart';
+import 'package:shop_app/shared/network/local/chache_helper.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 
 class ShopLogin extends StatelessWidget {
-  // ShopLogin({super.key});
-
   var fromkey = GlobalKey<FormState>();
 
   @override
@@ -22,17 +23,29 @@ class ShopLogin extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is ShopLoginSuccessStates) {
             if (state.loginModel.status == true) {
               print(state.loginModel.message);
               print(state.loginModel.data!.token);
-              
-              
-            } else {
-              print(state.loginModel.message);
-       
+              showToast(
+                text: "${state.loginModel.message}",
+                state: TostStates.SUCCESS,
+              );
+
+              await CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.data!.token,
+              ).then((value) {
+                navigateAndFinish(context, HomeLayout());
+              });
             }
+          } else if (state is ShopLoginErrorStates) {
+            print('gfdgdfgfdg ${state.loginModel.message}');
+            showToast(
+              text: "${state.loginModel.message}",
+              state: TostStates.ERROR,
+            );
           }
         },
         builder: (context, state) {
@@ -154,7 +167,7 @@ class ShopLogin extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Don\'t have an account?'),
+                            const Text('Don\'t have an account?'),
                             defaultTextButton(
                                 function: () {
                                   navigateAndFinish(
@@ -166,7 +179,7 @@ class ShopLogin extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
-                          height: 200,
+                          height: 100,
                         ),
                       ],
                     ),
