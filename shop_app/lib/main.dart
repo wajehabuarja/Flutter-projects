@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/cubit.dart';
@@ -26,12 +25,12 @@ void main() async {
 
   if (onBoarding != null) {
     if (token != null) {
-      widget = HomeLayout();
+      widget = const HomeLayout();
     } else {
       widget = ShopLogin();
     }
   } else {
-    widget = OnBoardingScreen();
+    widget = const OnBoardingScreen();
   }
 
   runApp(ShopApp(
@@ -42,14 +41,14 @@ void main() async {
 class ShopApp extends StatelessWidget {
   // final bool? onBoarding;
   final Widget? StartWidget;
-  ShopApp({this.StartWidget});
+  const ShopApp({super.key, this.StartWidget});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ShopCubit()..getHomeData()..getCategoriesData()..getFavorites(),
+          create: (context) => ShopCubit()..getHomeData()..getCategoriesData()..getFavorites()..getUserData(),
         ),
       ],
       child: MaterialApp(

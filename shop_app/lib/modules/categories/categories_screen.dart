@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/cubit.dart';
@@ -34,18 +33,18 @@ class CategoriesScreen extends StatelessWidget {
               width: 100,
               fit: BoxFit.cover,
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Text(
               '${model.name}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(),
-            Icon(
+            const Spacer(),
+            const Icon(
               Icons.arrow_forward_ios,
             ),
           ],

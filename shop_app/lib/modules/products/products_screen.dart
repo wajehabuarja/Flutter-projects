@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,8 +68,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 enableInfiniteScroll: true,
                 reverse: false,
                 autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(seconds: 1),
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(seconds: 1),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 scrollDirection: Axis.horizontal,
               ),
@@ -100,7 +99,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   Container(
                     height: 100,
                     child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
                           buildCategoryItem(categoriesModel.data!.data![index]),
@@ -263,7 +262,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () {
-                          print(model.id);
+                          // print(model.id);
                           ShopCubit.get(context).changeFavorites(model.id);
                         },
                         icon: Icon(

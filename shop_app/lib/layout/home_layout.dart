@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:shop_app/layout/cubit/cubit.dart';
 import 'package:shop_app/layout/cubit/states.dart';
-import 'package:shop_app/modules/login/shop_login.dart';
 import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/shared/component/component.dart';
-import 'package:shop_app/shared/network/local/chache_helper.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({super.key});
@@ -20,11 +16,11 @@ class HomeLayout extends StatelessWidget {
         var cubit = ShopCubit.get(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text('My Shop'),
+            title: const Text('My Shop'),
             actions: [
               IconButton(
                 onPressed: () {
-                  navigateTo(context, SearchScreen());
+                  navigateTo(context, const SearchScreen());
                 },
                 icon: const Icon(Icons.search),
               )

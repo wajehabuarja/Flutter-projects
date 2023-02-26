@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shop_app/layout/home_layout.dart';
@@ -9,10 +8,13 @@ import 'package:shop_app/modules/login/cubit/login_cubit.dart';
 import 'package:shop_app/modules/login/cubit/login_states.dart';
 import 'package:shop_app/modules/register/shop_register.dart';
 import 'package:shop_app/shared/component/component.dart';
+import 'package:shop_app/shared/component/constants.dart';
 import 'package:shop_app/shared/network/local/chache_helper.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 
 class ShopLogin extends StatelessWidget {
+  ShopLogin({super.key});
+  
   var fromkey = GlobalKey<FormState>();
 
   @override
@@ -26,8 +28,8 @@ class ShopLogin extends StatelessWidget {
         listener: (context, state) async {
           if (state is ShopLoginSuccessStates) {
             if (state.loginModel.status == true) {
-              print(state.loginModel.message);
-              print(state.loginModel.data!.token);
+              // print(state.loginModel.message);
+              // print(state.loginModel.data!.token);
               showToast(
                 text: "${state.loginModel.message}",
                 state: TostStates.SUCCESS,
@@ -37,11 +39,12 @@ class ShopLogin extends StatelessWidget {
                 key: 'token',
                 value: state.loginModel.data!.token,
               ).then((value) {
-                navigateAndFinish(context, HomeLayout());
+                token = state.loginModel.data!.token;
+                navigateAndFinish(context, const HomeLayout());
               });
             }
           } else if (state is ShopLoginErrorStates) {
-            print('gfdgdfgfdg ${state.loginModel.message}');
+            // print(state.loginModel.message);
             showToast(
               text: "${state.loginModel.message}",
               state: TostStates.ERROR,
@@ -112,6 +115,7 @@ class ShopLogin extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'Please Enter your Email';
                             }
+                            return null;
                           },
                           label: 'Email Address',
                           prefix: Icons.email_outlined,
@@ -126,6 +130,7 @@ class ShopLogin extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'Password is too short';
                             }
+                            return null;
                           },
                           label: 'Password',
                           prefix: Icons.lock_outline,

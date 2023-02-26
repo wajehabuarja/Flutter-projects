@@ -3,6 +3,8 @@ class ShopLoginModel {
   String? message;
   UserData? data;
 
+  ShopLoginModel.empty(){}
+
   ShopLoginModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];

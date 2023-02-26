@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shop_app/layout/cubit/cubit.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 
 //Navigator To
@@ -139,5 +140,109 @@ Widget myDivider() => Padding(
         width: double.infinity,
         height: 1,
         color: Colors.grey[300],
+      ),
+    );
+
+//
+Widget buildListProduct(model, context, {bool isOldPrice = true}) => Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 110,
+        child: Row(
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                Image(
+                  image: NetworkImage('${model.image}'),
+                  width: 120,
+                  height: 120,
+                ),
+                if (model.discount != 0 && isOldPrice)
+                  Container(
+                    color: Colors.red,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                      vertical: 3,
+                    ),
+                    child: Text('DISCOUNT',
+                        style: GoogleFonts.aBeeZee(
+                            textStyle: const TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ))),
+                  ),
+              ],
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model.name ?? 'default_name',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.workSans(
+                      textStyle: const TextStyle(
+                        fontSize: 14,
+                        height: 1.3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Text(model.price.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.copse(
+                            textStyle: const TextStyle(
+                              fontSize: 12,
+                              color: defaultColor,
+                            ),
+                          )),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      if (model.discount != 0 && isOldPrice)
+                        Text(
+                          model.oldPrice.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.copse(
+                            textStyle: const TextStyle(
+                              fontSize: 10,
+                              color: Colors.black,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ),
+                      const Spacer(),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          // print(model.id);
+                          ShopCubit.get(context).changeFavorites(model.id);
+                        },
+                        icon: Icon(
+                          (ShopCubit.get(context).favorites[model.id] ?? false)
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          size: 18,
+                          color: defaultColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );

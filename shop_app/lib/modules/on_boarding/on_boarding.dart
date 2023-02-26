@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/modules/login/shop_login.dart';
@@ -16,7 +15,7 @@ class BoardingModel {
 }
 
 class OnBoardingScreen extends StatefulWidget {
-  OnBoardingScreen({super.key});
+  const OnBoardingScreen({super.key});
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -48,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         navigateAndFinish(context, ShopLogin());
       }
     }).catchError((error) {
-      print('fdgdfgd${error}');
+      print(error);
     });
   }
 
