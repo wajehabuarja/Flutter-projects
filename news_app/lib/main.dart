@@ -18,7 +18,7 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
 
-  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
+  bool isDark = CacheHelper.getBoolean(key: 'isDark') ?? false;
   runApp(NewsApp(isDark!));
 }
 
